@@ -17,11 +17,23 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: "#b95c4e", secondary: "#d4a373", accent: "#f6f1ed" },
+          fontFamily: { playfair: ["Playfair Display", "serif"] },
+        },
+      },
+    };
+  </script>
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body class="selection:bg-pink-200 selection:text-pink-900">
+
+  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
   <!-- Header -->
   <header class="bg-primary text-accent py-16 text-center shadow-lg" style="background-color: var(--color-primary); color: var(--color-accent);">
@@ -30,7 +42,7 @@
   </header>
 
   <!-- Navigation -->
-  <nav id="navbar" class="sticky top-0 bg-primary shadow-md z-50">
+  <nav id="navbar" aria-label="Navigation principale" class="sticky top-0 bg-primary shadow-md z-50">
     <ul class="flex justify-center space-x-12 py-4 text-accent font-semibold tracking-wider uppercase select-none" style="color: var(--color-accent);">
       <li><a href="#nature" class="nav-link hover:text-secondary transition-colors">🌾 Nature</a></li>
       <li><a href="#culture" class="nav-link hover:text-secondary transition-colors">🏛️ Culture</a></li>
@@ -40,7 +52,7 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="max-w-4xl mx-auto px-6 py-12">
+  <main id="main-content" class="max-w-4xl mx-auto px-6 py-12">
 
     <!-- Section Nature -->
     <section id="nature" class="fade-in mb-24">
@@ -53,8 +65,8 @@
       </p>
 
       <!-- Slideshow -->
-      <div class="relative rounded-lg shadow-lg overflow-hidden">
-        <div id="slides" class="flex transition-transform duration-700 ease-in-out">
+      <div id="slideshow" role="region" aria-label="Photographies de Provence" class="relative rounded-lg shadow-lg overflow-hidden">
+        <div id="slides" aria-live="polite" aria-atomic="false" class="flex transition-transform duration-700 ease-in-out">
           <img src="images/lavande_valensole.jpg" alt="Champs de lavande à Valensole" class="w-full flex-shrink-0 object-cover max-h-96" loading="lazy" />
           <img src="images/luberon_paysage.jpg" alt="Paysage du Luberon" class="w-full flex-shrink-0 object-cover max-h-96" loading="lazy" />
           <img src="images/provence_collines.jpg" alt="Collines en Provence" class="w-full flex-shrink-0 object-cover max-h-96" loading="lazy" />

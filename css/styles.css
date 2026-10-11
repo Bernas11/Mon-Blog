@@ -1,118 +1,80 @@
-/* Variables de couleurs aristocratiques */
+/* Identidade visual da viagem */
 :root {
-  --color-primary: #b95c4e; /* Bordeaux doux */
-  --color-secondary: #d4a373; /* Ocre rosé */
-  --color-accent: #f6f1ed; /* Beige clair */
+  --color-primary: #b95c4e;
+  --color-primary-dark: #71372f;
+  --color-secondary: #d4a373;
+  --color-accent: #f6f1ed;
+  --color-text: #34302e;
 }
 
-/* Font families from Google Fonts */
+html { scroll-behavior: smooth; }
 body {
   font-family: 'Lora', serif;
-  background-color: var(--color-accent);
-  color: #4a4a4a;
+  background: var(--color-accent);
+  color: var(--color-text);
   line-height: 1.65;
   margin: 0;
-  padding: 0;
 }
-
-/* Headers */
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-}
-
+h1, h2 { font-family: 'Playfair Display', serif; }
 h1 {
-  color: var(--color-primary);
+  color: var(--color-accent);
   font-weight: 700;
+  text-wrap: balance;
 }
-
 h2 {
-  border-left-style: solid;
-  border-left-width: 8px;
-  border-left-color: var(--color-secondary);
+  border-left: 8px solid var(--color-secondary);
   padding-left: 1rem;
   margin-bottom: 1.5rem;
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
-
-/* Links */
-a {
-  color: var(--color-primary);
-  text-decoration: none;
+header {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
 }
-
-a:hover {
-  color: var(--color-secondary);
-  text-decoration: underline;
+#navbar { background-color: var(--color-primary-dark); }
+#navbar a { color: var(--color-accent); }
+#navbar a:hover, #navbar a:focus-visible { color: #ffe0ad; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid #075985;
+  outline-offset: 3px;
+  border-radius: 0.25rem;
 }
-
-/* Slideshow */
-#slideshow {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  color: white;
+  background: #111827;
+  transform: translateY(-200%);
 }
+.skip-link:focus { transform: translateY(0); }
 
-#slides {
-  display: flex;
-  transition: transform 0.7s ease-in-out;
-  width: 300%; /* 3 imagens = 300% */
+/* Cada slide ocupa exatamente a área visível; os controlos são manuais. */
+#slideshow { overflow: hidden; width: 100%; max-width: 800px; margin: 0 auto; }
+#slides { display: flex; width: 100%; transition: transform 0.45s ease-in-out; }
+#slides img { display: block; width: 100%; height: clamp(16rem, 55vw, 24rem); flex: 0 0 100%; object-fit: cover; }
+button { font-weight: 700; font-size: 1.5rem; cursor: pointer; border: 0; user-select: none; }
+
+/* A página mantém-se legível sem JavaScript e para quem pede menos movimento. */
+.fade-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { opacity: 0; transform: translateY(15px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
 }
-
-#slides img {
-  width: 100%;
-  flex: 0 0 100%;
-  height: auto;
-  object-fit: cover;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-
-/* Fade-in effect */
-.fade-in {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Button styles */
-button {
-  font-weight: 700;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border: none;
-  user-select: none;
-}
-
-/* Scrollbar (webkit) */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-secondary);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-accent);
-}
-
-/* Responsive */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background-color: var(--color-secondary); border-radius: 10px; }
+::-webkit-scrollbar-track { background: var(--color-accent); }
 @media (max-width: 768px) {
-  main {
-    padding: 1rem 1.5rem;
-  }
-
-  h1 {
-    font-size: 2.8rem;
-  }
-
-  h2 {
-    font-size: 2rem;
-  }
+  #navbar ul { flex-wrap: wrap; gap: 0.75rem 1.25rem; padding-inline: 1rem; }
+  main { padding: 1rem 1.5rem; }
+  h1 { font-size: clamp(1.8rem, 8vw, 2.8rem); padding-inline: 1rem; }
+  h2 { font-size: 1.75rem; }
 }
